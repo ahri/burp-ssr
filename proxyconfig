@@ -1,0 +1,4 @@
+proxy.interceptenablestateatstartup: 2
+proxy.listener0: 1.8080.0.0..0.0.1.0..0..0..0.
+scanner.activecustomscopeinclude0: 1.0.0.0.
+scanner.activecustomscopetype: 3

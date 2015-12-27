@@ -1,0 +1,32 @@
+spider:
+    build: ./burp
+    links:
+        - attackproxy
+    volumes:
+        - "./spiderconfig:/config:ro"
+        - "./burp-spider-and-quit.jar:/ext.jar:ro"
+    environment:
+        - BUPR_LICENSE
+    command: -c /config -e /ext.jar
+
+attackproxy:
+    build: ./burp
+    links:
+        - elasticsearch
+    volumes:
+        - "./proxyconfig:/config:ro"
+        - "./burp-report-to-elasticsearch.jar:/ext.jar:ro"
+    environment:
+        - BUPR_LICENSE
+        - BURP_RTE_TYPE=elasticsearch
+    command: -c /config -e /ext.jar
+
+kibana:
+    image: ahri/kibana
+    links:
+        - elasticsearch
+    ports:
+        - "5601:5601"
+
+elasticsearch:
+    image: ahri/elasticsearch
